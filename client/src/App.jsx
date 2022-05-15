@@ -4,6 +4,7 @@ import '@tensorflow/tfjs-backend-webgl';
 import ModelLoadState from './components/ModelLoadState.jsx';
 import IsPidgeon from './components/IsPidgeon.jsx';
 import BirdList from './components/BirdList.jsx';
+import sampleData from './sampleData.js';
 
 class App extends React.Component {
   constructor(props){
@@ -25,6 +26,14 @@ class App extends React.Component {
 
   pageRouter(){
 
+  }
+
+  searchUrl(url) {
+    event.preventDefault();
+    let imageUrl = url.target[0].value;
+    this.setState({
+      imgUrl: imageUrl
+    })
   }
 
   render () {
@@ -54,7 +63,7 @@ class App extends React.Component {
           <ModelLoadState model={this.state.model}/>
         </div>
         <div className="content">
-          <IsPidgeon model={this.state.model}/>
+          <IsPidgeon model={this.state.model} imageUrl={this.state.imgUrl} searchUrl={this.searchUrl.bind(this)} />
           <BirdList />
         </div>
       </div>
