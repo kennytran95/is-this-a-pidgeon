@@ -20,6 +20,7 @@ class IsPidgeon extends React.Component {
       .then(predictions => {
         console.log(predictions[0].className === 'partridge' ? 'This is a Pidgeon' : 'This is not a Pidgeon');
         console.log(predictions[0].className === 'partridge' ? 'Pidgeon Confidence: ' + predictions[0].probability : '');
+        this.props.addToTested(image);
         return (predictions[0].className === 'partridge' ? 'This is a Pidgeon' : 'This is not a Pidgeon');
         //Yes I know a partridge is not a pidgeon,
         //but I keep feeding the model Pidgeons and they keep coming out as partridges???
@@ -48,10 +49,12 @@ class IsPidgeon extends React.Component {
               className="img"
             />
           </div>
-          {this.state.birdOrNaw}
           <button onClick={() => this.isPidgeonTest(this.imgRef)}>
             Test
           </button>
+          <div className='birdorNaw-text'>
+            {this.state.birdOrNaw}
+          </div>
       </div>
     );
   }

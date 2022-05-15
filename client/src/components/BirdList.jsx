@@ -1,4 +1,5 @@
 import React from 'react';
+import Tested from './Tested.jsx';
 
 class BirdList extends React.Component {
   constructor(props){
@@ -8,13 +9,14 @@ class BirdList extends React.Component {
   }
 
   render(){
+    // <img className="entry-image" src="https://i.imgur.com/lHWTPUq.jpeg" alt="bird(?)"/>
     return (
       <div>
         <h1>Pidgeon Tests</h1>
           <div className="bird-list">
             <div className="entry">
             <div className="entry-image-wrapper">
-                <img className="entry-image" src="https://i.imgur.com/lHWTPUq.jpeg" alt="bird(?)"/>
+                <Tested tested={this.props.tested}/>
               </div>
               <div className="entry-text">
                 <div className="entry-name">

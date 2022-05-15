@@ -11,7 +11,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       model: null,
-      imgUrl: null
+      imgUrl: null,
+      tested: [],
+      view: true,
+      birdView: false,
     };
     this.imgRef = React.createRef();
   }
@@ -36,6 +39,27 @@ class App extends React.Component {
     })
   }
 
+  addToTested(test) {
+    let copy = [...this.state.tested, test.current.src];
+    this.setState({
+      tested: copy
+    })
+  }
+
+  toggleView() {
+    this.setState({
+      view: true,
+      birdView: false
+    })
+  }
+
+  toggleBirdView() {
+    this.setState({
+      view: false,
+      birdView: true
+    })
+  }
+
   render () {
     return (
       <div>
@@ -43,7 +67,7 @@ class App extends React.Component {
           <div className="nav">
           <span className="title">
             <img src="https://i.imgur.com/eXPeS9m.gif" height='100px'/>
-            <span className="title-text">
+            <span onClick={() => this.toggleView()} className="title-text">
               <h3>Is this a Pidgeon?</h3>
             </span>
             <span className="nav-button">
@@ -55,7 +79,7 @@ class App extends React.Component {
             <span className="nav-button">
             |
             </span>
-            <span className="nav-button">
+            <span onClick={() => this.toggleBirdView()} className="nav-button">
               Show Me My Birds
             </span>
           </span>
@@ -63,11 +87,10 @@ class App extends React.Component {
           <ModelLoadState model={this.state.model}/>
         </div>
         <div className="content">
-          <IsPidgeon model={this.state.model} imageUrl={this.state.imgUrl} searchUrl={this.searchUrl.bind(this)} />
-          <BirdList />
+          {this.state.view && <IsPidgeon model={this.state.model} imageUrl={this.state.imgUrl} searchUrl={this.searchUrl.bind(this)} addToTested={this.addToTested.bind(this)}/>}
+          {this.state.birdView && <BirdList imageUrl={this.state.imgUrl} tested={this.state.tested}/> }
         </div>
       </div>
-
     );
   }
 }
